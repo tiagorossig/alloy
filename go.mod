@@ -829,7 +829,8 @@ require github.com/containerd/platforms v0.2.1 // indirect
 // dependency.
 
 // TODO(tiagogr): replace directive
-replace github.com/grafana/ckit => github.com/tiagorossig/ckit v0.0.0-20240911203718-626fabc45032
+//replace github.com/grafana/ckit => github.com/tiagorossig/ckit v0.0.0-20240911203718-626fabc45032
+//replace github.com/grafana/ckit => github.com/tiagorossig/ckit
 
 // TODO: remove this replace directive once opentelemetry-collector-contrib/receiver/prometheusreceiver is updated to prometheus/prometheus v0.51.0 or later
 replace github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver => github.com/grafana/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.0.0-20240326165551-1ae1b9218b1b
@@ -917,3 +918,5 @@ replace github.com/prometheus/procfs => github.com/prometheus/procfs v0.12.0
 // It's important to remove it asap because in version v0.13.1 there is a fix for Beyla.
 // PR to track it: https://github.com/opencontainers/runc/pull/4397
 replace github.com/cilium/ebpf => github.com/cilium/ebpf v0.12.3
+
+replace github.com/grafana/ckit => github.com/tiagorossig/ckit v0.0.0-20240911203718-626fabc45032
