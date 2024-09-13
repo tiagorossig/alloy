@@ -127,7 +127,7 @@ func New(opts Options) (*Service, error) {
 
 	httpClient := &http.Client{
 		Transport: &http2.Transport{
-			AllowHTTP: true,
+			AllowHTTP: false,
 			DialTLSContext: func(ctx context.Context, network, addr string, _ *tls.Config) (net.Conn, error) {
 				// Set a maximum timeout for establishing the connection. If our
 				// context has a deadline earlier than our timeout, we shrink the
