@@ -150,7 +150,13 @@ func New(opts Options) (*Service, error) {
 		if err != nil {
 			return nil, err
 		}
-		level.Debug(l).Log("successfully loaded TLS config for cluster http transport", tlsConfig)
+		// Log the TLS config options
+		level.Debug(l).Log(
+			"msg", "successfully loaded TLS config for cluster http transport",
+			"TLSCAPath", opts.TLSCAPath,
+			"TLSCertPath", opts.TLSCertPath,
+			"TLSKeyPath", opts.TLSKeyPath,
+		)
 		httpTransport.TLSClientConfig = tlsConfig
 	}
 	httpClient := &http.Client{
