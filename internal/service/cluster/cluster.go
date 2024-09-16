@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"golang.org/x/net/http2"
 	"math/rand"
-	"net"
 	"net/http"
 	"os"
 	"strings"
@@ -131,26 +130,43 @@ func New(opts Options) (*Service, error) {
 
 	httpTransport := &http2.Transport{
 		AllowHTTP: false,
-		DialTLSContext: func(ctx context.Context, network, addr string, _ *tls.Config) (net.Conn, error) {
-			// Set a maximum timeout for establishing the connection. If our
-			// context has a deadline earlier than our timeout, we shrink the
-			// timeout to it.
-			//
-			// TODO(rfratto): consider making the max timeout configurable.
-			timeout := 30 * time.Second
-			if dur, ok := deadlineDuration(ctx); ok && dur < timeout {
-				timeout = dur
-			}
-
-			return net.DialTimeout(network, addr, timeout)
-		},
+		//DialTLSContext: func(ctx context.Context, network, addr string, _ *tls.Config) (net.Conn, error) {
+		//	// Set a maximum timeout for establishing the connection. If our
+		//	// context has a deadline earlier than our timeout, we shrink the
+		//	// timeout to it.
+		//	//
+		//	// TODO(rfratto): consider making the max timeout configurable.
+		//	timeout := 30 * time.Second
+		//	if dur, ok := deadlineDuration(ctx); ok && dur < timeout {
+		//		timeout = dur
+		//	}
+		//
+		//	return net.DialTimeout(network, addr, timeout)
+		//},
+		// TRY NEXT? NEW VERSION BELOW
+		//DialTLSContext: func(ctx context.Context, network, addr string, cfg *tls.Config) (net.Conn, error) {
+		//	// Set a maximum timeout for establishing the connection. If our
+		//	// context has a deadline earlier than our timeout, we shrink the
+		//	// timeout to it.
+		//	//
+		//	// TODO(rfratto): consider making the max timeout configurable.
+		//	timeout := 30 * time.Second
+		//	if dur, ok := deadlineDuration(ctx); ok && dur < timeout {
+		//		timeout = dur
+		//	}
+		//
+		//	// Use tls.DialWithDialer to create a TLS connection with the provided tls.Config
+		//	dialer := &net.Dialer{
+		//		Timeout: timeout,
+		//	}
+		//	return tls.DialWithDialer(dialer, network, addr, cfg)
+		//},
 	}
 	if opts.EnableTLS {
 		tlsConfig, err := loadTLSConfigFromFile(opts.TLSCAPath, opts.TLSCertPath, opts.TLSKeyPath)
 		if err != nil {
 			return nil, err
 		}
-		// Log the TLS config options
 		level.Debug(l).Log(
 			"msg", "successfully loaded TLS config for cluster http transport",
 			"TLSCAPath", opts.TLSCAPath,
