@@ -173,6 +173,7 @@ func New(opts Options) (*Service, error) {
 			"TLSCAPath", opts.TLSCAPath,
 			"TLSCertPath", opts.TLSCertPath,
 			"TLSKeyPath", opts.TLSKeyPath,
+			"TLSServerName", opts.TLSServerName,
 		)
 		httpTransport.TLSClientConfig = tlsConfig
 	}
