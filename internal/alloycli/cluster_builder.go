@@ -42,6 +42,7 @@ type clusterOptions struct {
 	TLSCAPath                 string
 	TLSCertPath               string
 	TLSKeyPath                string
+	TLSServerName             string
 }
 
 func buildClusterService(opts clusterOptions) (*cluster.Service, error) {
@@ -62,6 +63,7 @@ func buildClusterService(opts clusterOptions) (*cluster.Service, error) {
 		TLSCAPath:                 opts.TLSCAPath,
 		TLSCertPath:               opts.TLSCertPath,
 		TLSKeyPath:                opts.TLSKeyPath,
+		TLSServerName:             opts.TLSServerName,
 	}
 
 	if config.NodeName == "" {

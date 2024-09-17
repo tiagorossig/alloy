@@ -80,6 +80,7 @@ type Options struct {
 	TLSCAPath                 string        // Path to the CA file.
 	TLSCertPath               string        // Path to the certificate file.
 	TLSKeyPath                string        // Path to the key file.
+	TLSServerName             string        // Server name to use for TLS verification.
 	RejoinInterval            time.Duration // How frequently to rejoin the cluster to address split brain issues.
 	ClusterMaxJoinPeers       int           // Number of initial peers to join from the discovered set.
 	ClusterName               string        // Name to prevent nodes without this identifier from joining the cluster.
@@ -163,7 +164,7 @@ func New(opts Options) (*Service, error) {
 		//},
 	}
 	if opts.EnableTLS {
-		tlsConfig, err := loadTLSConfigFromFile(opts.TLSCAPath, opts.TLSCertPath, opts.TLSKeyPath)
+		tlsConfig, err := loadTLSConfigFromFile(opts.TLSCAPath, opts.TLSCertPath, opts.TLSKeyPath, opts.TLSServerName)
 		if err != nil {
 			return nil, err
 		}
@@ -200,7 +201,7 @@ func New(opts Options) (*Service, error) {
 	}, nil
 }
 
-func loadTLSConfigFromFile(TLSCAPath string, TLSCertPath string, TLSKeyPath string) (*tls.Config, error) {
+func loadTLSConfigFromFile(TLSCAPath string, TLSCertPath string, TLSKeyPath string, serverName string) (*tls.Config, error) {
 	pem, err := os.ReadFile(TLSCAPath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read TLS CA file: %w", err)
@@ -219,6 +220,7 @@ func loadTLSConfigFromFile(TLSCAPath string, TLSCertPath string, TLSKeyPath stri
 	return &tls.Config{
 		Certificates: []tls.Certificate{cert},
 		RootCAs:      caCertPool,
+		ServerName:   serverName,
 	}, nil
 }
 

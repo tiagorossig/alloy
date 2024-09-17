@@ -139,6 +139,8 @@ depending on the nature of the reload error.
 		StringVar(&r.clusterTLSCertPath, "cluster.tls-cert-path", r.clusterTLSCertPath, "Path to the certificate file")
 	cmd.Flags().
 		StringVar(&r.clusterTLSKeyPath, "cluster.tls-key-path", r.clusterTLSKeyPath, "Path to the key file")
+	cmd.Flags().
+		StringVar(&r.clusterTLSServerName, "cluster.tls-server-name", r.clusterTLSServerName, "Server name to use for TLS communication")
 	// TODO(alloy/#1274): make this flag a no-op once we have more confidence in this feature, and add issue to
 	// remove it in the next major release
 	cmd.Flags().
@@ -180,6 +182,7 @@ type alloyRun struct {
 	clusterTLSCAPath             string
 	clusterTLSCertPath           string
 	clusterTLSKeyPath            string
+	clusterTLSServerName         string
 	configFormat                 string
 	configBypassConversionErrors bool
 	configExtraArgs              string
