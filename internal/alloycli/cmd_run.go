@@ -277,6 +277,7 @@ func (fr *alloyRun) Run(configPath string) error {
 		TLSCertPath:               fr.clusterTLSCertPath,
 		TLSCAPath:                 fr.clusterTLSCAPath,
 		TLSKeyPath:                fr.clusterTLSKeyPath,
+		TLSServerName:             fr.clusterTLSServerName,
 	})
 	if err != nil {
 		return err
