@@ -828,10 +828,6 @@ require github.com/containerd/platforms v0.2.1 // indirect
 // (i.e., creating a new Go module with the same source) or picking a different
 // dependency.
 
-// TODO(tiagogr): replace directive
-//replace github.com/grafana/ckit => github.com/tiagorossig/ckit v0.0.0-20240911203718-626fabc45032
-//replace github.com/grafana/ckit => github.com/tiagorossig/ckit
-
 // TODO: remove this replace directive once opentelemetry-collector-contrib/receiver/prometheusreceiver is updated to prometheus/prometheus v0.51.0 or later
 replace github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver => github.com/grafana/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.0.0-20240326165551-1ae1b9218b1b
 

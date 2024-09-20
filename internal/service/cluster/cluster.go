@@ -81,7 +81,7 @@ type Options struct {
 	TLSCAPath                 string        // Path to the CA file.
 	TLSCertPath               string        // Path to the certificate file.
 	TLSKeyPath                string        // Path to the key file.
-	TLSServerName             string        // Server name to use for TLS verification.
+	TLSServerName             string        // Server name to use for TLS communication.
 	RejoinInterval            time.Duration // How frequently to rejoin the cluster to address split brain issues.
 	ClusterMaxJoinPeers       int           // Number of initial peers to join from the discovered set.
 	ClusterName               string        // Name to prevent nodes without this identifier from joining the cluster.
@@ -132,20 +132,6 @@ func New(opts Options) (*Service, error) {
 
 	httpTransport := &http2.Transport{
 		AllowHTTP: false,
-		//DialTLSContext: func(ctx context.Context, network, addr string, _ *tls.Config) (net.Conn, error) {
-		//	// Set a maximum timeout for establishing the connection. If our
-		//	// context has a deadline earlier than our timeout, we shrink the
-		//	// timeout to it.
-		//	//
-		//	// TODO(rfratto): consider making the max timeout configurable.
-		//	timeout := 30 * time.Second
-		//	if dur, ok := deadlineDuration(ctx); ok && dur < timeout {
-		//		timeout = dur
-		//	}
-		//
-		//	return net.DialTimeout(network, addr, timeout)
-		//},
-		// TRY NEXT? NEW VERSION BELOW
 		DialTLSContext: func(ctx context.Context, network, addr string, cfg *tls.Config) (net.Conn, error) {
 			// Set a maximum timeout for establishing the connection. If our
 			// context has a deadline earlier than our timeout, we shrink the
@@ -156,8 +142,6 @@ func New(opts Options) (*Service, error) {
 			if dur, ok := deadlineDuration(ctx); ok && dur < timeout {
 				timeout = dur
 			}
-
-			// Use tls.DialWithDialer to create a TLS connection with the provided tls.Config
 			dialer := &net.Dialer{
 				Timeout: timeout,
 			}
@@ -170,7 +154,7 @@ func New(opts Options) (*Service, error) {
 			return nil, err
 		}
 		level.Debug(l).Log(
-			"msg", "successfully loaded TLS config for cluster http transport",
+			"msg", "loaded TLS config for cluster http transport",
 			"TLSCAPath", opts.TLSCAPath,
 			"TLSCertPath", opts.TLSCertPath,
 			"TLSKeyPath", opts.TLSKeyPath,
@@ -211,12 +195,12 @@ func loadTLSConfigFromFile(TLSCAPath string, TLSCertPath string, TLSKeyPath stri
 	caCertPool := x509.NewCertPool()
 	caCertPool.AppendCertsFromPEM(pem)
 	if !caCertPool.AppendCertsFromPEM(pem) {
-		return nil, fmt.Errorf("failed to append CA from PEM: %w", TLSCAPath)
+		return nil, fmt.Errorf("failed to append CA from PEM with path %w", TLSCAPath)
 	}
 
 	cert, err := tls.LoadX509KeyPair(TLSCertPath, TLSKeyPath)
 	if err != nil {
-		return nil, fmt.Errorf("failed to load X509 key pair: %w", TLSCAPath)
+		return nil, fmt.Errorf("failed to load X509 key pair: %w", err)
 	}
 
 	return &tls.Config{
