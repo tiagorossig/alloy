@@ -919,4 +919,4 @@ replace github.com/prometheus/procfs => github.com/prometheus/procfs v0.12.0
 replace github.com/opencontainers/runc => github.com/rafaelroquetto/runc v1.1.14-1
 
 // Temporary replace until ckit changes are merged upstream
-replace github.com/grafana/ckit => github.com/tiagorossig/ckit v0.0.0-20240920184404-077657c65a6f
+replace github.com/grafana/ckit => github.com/tiagorossig/ckit v0.0.0-20240926205601-7918b3c216a6

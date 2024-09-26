@@ -2392,8 +2392,8 @@ github.com/testcontainers/testcontainers-go v0.33.0 h1:zJS9PfXYT5O0ZFXM2xxXfk4J5
 github.com/testcontainers/testcontainers-go v0.33.0/go.mod h1:W80YpTa8D5C3Yy16icheD01UTDu+LmXIA2Keo+jWtT8=
 github.com/tg123/go-htpasswd v1.2.2 h1:tmNccDsQ+wYsoRfiONzIhDm5OkVHQzN3w4FOBAlN6BY=
 github.com/tg123/go-htpasswd v1.2.2/go.mod h1:FcIrK0J+6zptgVwK1JDlqyajW/1B4PtuJ/FLWl7nx8A=
-github.com/tiagorossig/ckit v0.0.0-20240920184404-077657c65a6f h1:k8YmA8sNzKYlbHtrMkZXikDSajqkYuLdM9Eerw14qBA=
-github.com/tiagorossig/ckit v0.0.0-20240920184404-077657c65a6f/go.mod h1:dDqep1rKTbq2ppMYEgIM88GaPXHp4i6Cp3qantiloA0=
+github.com/tiagorossig/ckit v0.0.0-20240926205601-7918b3c216a6 h1:smgBe3n9GHPfkebiA/9JOxMfD/UPpOuifOiGMgLYD8w=
+github.com/tiagorossig/ckit v0.0.0-20240926205601-7918b3c216a6/go.mod h1:kmCztkYTEcfb5Xia2365XvkMxJ2COOsXyyXE0QLTLwE=
 github.com/tidwall/gjson v1.6.0/go.mod h1:P256ACg0Mn+j1RXIDXoss50DeIABTYK1PULOJHhxOls=
 github.com/tidwall/match v1.0.1/go.mod h1:LujAq0jyVjBy028G1WhWfIzbpQfMO8bBZ6Tyb0+pL9E=
 github.com/tidwall/pretty v1.0.0/go.mod h1:XNkn88O1ChpSDQmQeStsy+sBenx6DDtFZJxhVysOjyk=

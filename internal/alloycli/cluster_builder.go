@@ -68,6 +68,9 @@ func buildClusterService(opts clusterOptions) (*cluster.Service, error) {
 
 	if config.NodeName == "" {
 		hostname, err := os.Hostname()
+
+		level.Info(opts.Log).Log("msg", "OS.HOSTNAME() CALLED IN buildClusterService", "hostname", hostname, "err", err)
+
 		if err != nil {
 			return nil, fmt.Errorf("generating node name: %w", err)
 		}
